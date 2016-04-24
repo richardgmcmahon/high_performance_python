@@ -1,17 +1,31 @@
+from __future__ import print_function, division
+
+import time
+
 import numpy as np
 import matplotlib.pyplot as plt
 
 
 if __name__ == "__main__":
+    t0 = time.time()
     np.random.seed(0)  # force repeatable plt
-    nbr_items = 1E4
+    nbr_items = 1E6
+    print()
+    print('Number of trials:', nbr_items)
     xs = np.random.uniform(0, 1, nbr_items)
     ys = np.random.uniform(0, 1, nbr_items)
     estimate_inside_quarter_unit_circle = (xs * xs + ys * ys) <= 1
     nbr_trials_in_quarter_unit_circle = np.sum(
         estimate_inside_quarter_unit_circle)
+
+    t1 = time.time()
+    print('Elapsed time (secs):', t1 - t0)
+
     # estimate for the full circle
     pi = (nbr_trials_in_quarter_unit_circle * 4) / nbr_items
+
+    t1 = time.time()
+    print('Elapsed time (secs):', t1 - t0)
 
     plt.figure(1, figsize=(8, 8))
     plt.clf()
@@ -30,3 +44,7 @@ if __name__ == "__main__":
     # plt.show()
     plt.tight_layout()
     plt.savefig("08_pi_plot_monte_carlo_example.png")
+
+    t1 = time.time()
+    print('Elapsed time (secs):', t1 - t0)
+    print()
